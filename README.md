@@ -1,2 +1,2 @@
 # kilimanjaro
-some handy  tools  in daily work
+some handy utility in daily work
