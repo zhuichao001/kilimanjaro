@@ -49,6 +49,35 @@ fn reference(){
     println!("The length of '{}' is {}.", nation, len);
 }
 
+fn borrowing(){
+    fn change(src: &mut String) {
+        src.push_str(", world");
+    }
+    let mut s = String::from("hello");
+    change(&mut s);
+    println!("after change:{}", s);
+
+    let r1 = &s;
+    let r2 = &s; //SHOULD ERROR
+    let r3 = &mut s;
+}
+
+fn enumerator(){
+    fn first_wordlen(s: &String) -> usize {
+       let bytes = s.as_bytes();
+       for (i, &item) in bytes.iter().enumerate() {
+           if item == b' ' {
+               return i;
+           }
+       }
+       s.len()
+    }
+
+    let src = String::from("hello world");
+    let n = first_wordlen(&src);
+    println!("first word len={}", n);
+}
+
 fn array(){
     let arr: [u32; 5] = [1, 2, 3, 7, 8];
     for a in arr.iter(){
@@ -297,5 +326,9 @@ fn main(){
     looper();
     println!("-------------");
     reference();
+    println!("-------------");
+    borrowing();
+    println!("-------------");
+    enumerator();
     println!("-------------");
 }
