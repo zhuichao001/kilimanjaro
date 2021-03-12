@@ -21,6 +21,18 @@ fn variable(){
 
 }
 
+fn crash(){
+    panic!("crash and burn");
+}
+
+fn readfile(){
+    use std::fs;
+    let filename = String::from("README.md");
+    let contents = fs::read_to_string(&filename)
+        .expect("Something went wrong reading the file");
+    println!("Read file:{}, text:\n{}", filename, contents);
+}
+
 fn string(){
     let s = String::new();
     let s2 = String::from("hawk");
@@ -330,5 +342,7 @@ fn main(){
     borrowing();
     println!("-------------");
     enumerator();
+    println!("-------------");
+    readfile();
     println!("-------------");
 }
