@@ -1,10 +1,3 @@
-
-fn clone(){
-    let s1 = String::from("hello");
-    let s2 = s1.clone();
-    println!("s1 = {}, s2 = {}", s1, s2);
-}
-
 fn var(){
     let m = 123;
     let m = (m+1)/2;
@@ -22,6 +15,12 @@ fn var(){
 
 }
 
+fn clone(){
+    let s1 = String::from("hello");
+    let s2 = s1.clone();
+    println!("s1 = {}, s2 = {}", s1, s2);
+}
+
 fn array(){
     let arr: [u32; 5] = [1, 2, 3, 7, 8];
     for a in arr.iter(){
@@ -31,10 +30,8 @@ fn array(){
 
 fn slice(){
     let s = String::from("broadcast");
-
     let part1 = &s[0..5];
     let part2 = &s[5..9];
-
     println!("{}={}+{}", s, part1, part2);
 }
 
@@ -60,7 +57,6 @@ fn tuple_struct(){
 fn tuple(){
     let tup: (i32, f64, u8) = (500, 6.4, 1);
     println!("tuple = ({}, {}, {})", tup.0, tup.1, tup.2);
-
     let (x, y, z) = tup;
     println!("x={}, y={}, z={}", x, y, z);
 }
@@ -122,12 +118,9 @@ fn string(){
 
 fn hashmap(){
     use std::collections::HashMap;
-
     let mut map = HashMap::new();
-
     map.insert("city", "suzhou");
     map.insert("size", "10");
-
     println!("{}", map.get("city").unwrap());
 }
 
