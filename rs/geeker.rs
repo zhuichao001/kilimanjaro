@@ -1,5 +1,5 @@
-fn var(){
-    let m = 123;
+fn variable(){
+    let m = 96_000;
     let m = (m+1)/2;
     println!("m={}", m);
 
@@ -13,12 +13,40 @@ fn var(){
     v = "no";
     println!("v={}, len={}", v, v.len());
 
+    const PI:f32 = 3.14159;
+    println!("PI={}", PI);
+
+    let b: bool = false;
+    println!("bool={}", b);
+
 }
 
-fn clone(){
+fn string(){
+    let s = String::new();
+    let s2 = String::from("hawk");
+    let mut s3 = String::from("hello ");
+    let d = 999.to_string();
+    let f = 1.2.to_string();
+    let birth: u32 = "1984".parse().expect("Not year!");
+    s3.push_str("world.");
+    println!("{} {} {} {} {} {}", s, s2, s3, d, f, birth);
+}
+
+fn ownership(){
     let s1 = String::from("hello");
     let s2 = s1.clone();
-    println!("s1 = {}, s2 = {}", s1, s2);
+    println!("s1={}, s2={}", s1, s2);
+    //let s3 = s1;
+    //println!("s3={}", s3);
+}
+
+fn reference(){
+    fn length(s: &String) -> usize {
+        s.len()
+    }
+    let nation = String::from("chinese");
+    let len = length(&nation);
+    println!("The length of '{}' is {}.", nation, len);
 }
 
 fn array(){
@@ -70,6 +98,33 @@ fn enumer(){
     println!("color={:?}", leaf);
 }
 
+fn ifelse(){
+    let flag = true;
+    let number = if flag {
+        9
+    } else {
+        6
+    };
+    if !flag {
+        println!("false number is: {}", number);
+    } else {
+        println!("true number is: {}", number);
+    }
+}
+
+fn looper(){
+    let mut counter = 0;
+    let res = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+
+    println!("loop result is {}", res);
+}
+
 fn module(){
     mod nation {
         pub mod government {
@@ -106,14 +161,6 @@ fn vector(){
     let mut v = vec![1, 2, 4, 8];
     v.push(16);
     println!("{:?}", v);
-}
-
-fn string(){
-    let s = String::new();
-    let s2 = String::from("hawk");
-    let d = 999.to_string();
-    let f = 1.2.to_string();
-    println!("{} {} {} {}", s, s2, d, f);
 }
 
 fn hashmap(){
@@ -207,11 +254,12 @@ fn genericity(){
 }
 
 
-
 fn main(){
+    variable();
+    println!("-------------");
     array();
     println!("-------------");
-    clone();
+    ownership();
     println!("-------------");
     slice();
     println!("-------------");
@@ -243,5 +291,11 @@ fn main(){
     template();
     println!("-------------");
     genericity();
+    println!("-------------");
+    ifelse();
+    println!("-------------");
+    looper();
+    println!("-------------");
+    reference();
     println!("-------------");
 }
