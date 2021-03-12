@@ -173,6 +173,48 @@ fn threading(){
     println!("thread finish.");
 }
 
+fn template(){
+    #[derive(Debug)]
+    struct Point<T> {
+        x: T,
+        y: T,
+    };
+
+    let ipos = Point { x: 6, y: 5 };
+    let fpos = Point { x: 30.21, y: 56.03};
+    println!("{:?}", ipos);
+    println!("{:?}", fpos);
+}
+
+fn genericity(){
+    trait Comparable { //interface
+        fn compare(&self, object: &Self) -> i8;
+    }
+    fn max<T: Comparable>(array: &[T]) -> &T {
+        let mut idx = 0;
+        let mut i = 1;
+        while i < array.len() {
+            if array[i].compare(&array[idx]) > 0 {
+                idx = i;
+            }
+            i += 1;
+        }
+        &array[idx]
+    }
+    impl Comparable for i32 {
+        fn compare(&self, object: &i32) -> i8 {
+            if &self > &object { 1 }
+            else if &self == &object { 0 }
+            else { -1 }
+        }
+    }
+
+    let numbers = [3,1,9,2,6,0];
+    println!("genericity max={}", max(&numbers));
+}
+
+
+
 fn main(){
     array();
     println!("-------------");
@@ -204,5 +246,9 @@ fn main(){
     oop();
     println!("-------------");
     threading();
+    println!("-------------");
+    template();
+    println!("-------------");
+    genericity();
     println!("-------------");
 }
