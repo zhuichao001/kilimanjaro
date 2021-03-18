@@ -19,6 +19,10 @@ fn variable(){
     let b: bool = false;
     println!("bool={}", b);
 
+    let decimal = 65.4321_f32;
+    //let integer: u8 = decimal; //ERROR
+    let integer = decimal as u8;
+    println!("integer={}", integer);
 }
 
 fn crash(){
@@ -202,6 +206,11 @@ fn vector(){
     let mut v = vec![1, 2, 4, 8];
     v.push(16);
     println!("{:?}", v);
+
+    let elem = 5u8;
+    let mut vec = Vec::new();
+    vec.push(elem); //specify vec<u8>
+    println!("{:?}", vec);
 }
 
 fn hashmap(){
@@ -294,6 +303,65 @@ fn genericity(){
     println!("genericity max={}", max(&numbers));
 }
 
+fn alias(){
+    type Inch = u64;
+    #[allow(non_camel_case_types)]
+    type u64_t = u64;
+    let inches: Inch = 2 as u64_t;
+    println!("alias {:?}", inches);
+
+}
+
+fn from(){
+    use std::convert::From;
+
+    #[derive(Debug)]
+    struct Number {
+        value: i32,
+    }
+
+    impl From<i32> for Number {
+        fn from(item: i32) -> Self {
+            Number { value: item }
+        }
+    }
+
+    let num = Number::from(30);
+    println!("My number is {:?}", num);
+}
+
+fn switch(){
+    let number = 11;
+    println!("Tell me about {}", number);
+    match number {
+        1 => println!("One!"),
+        2 | 3 | 5 | 7 | 11 => println!("{} is a prime", number),
+        13..=19 => println!("A teen"),
+        _ => println!("Ain't special"),
+    }
+
+    let pair = (0, -2);
+    println!("Tell me about {:?}", pair);
+    match pair {
+        (0, y) => println!("First is `0` and `y` is `{:?}`", y),
+        (x, 0) => println!("`x` is `{:?}` and last is `0`", x),
+        _      => println!("It doesn't matter what they are"),
+    }
+}
+
+fn closure(){
+    fn  closure_function    (i: i32) -> i32 { i + 1 }
+
+    let closure_annotated = |i: i32| -> i32 { i + 1 };
+    let closure_inferred  = |i     |          i + 1  ;
+    let closure_noparam   = || 1;
+
+    let i = 1;
+    println!("function: {}", closure_function(i));
+    println!("closure_annotated: {}", closure_annotated(i));
+    println!("closure_inferred: {}", closure_inferred(i));
+    println!("closure returning one: {}", closure_noparam());
+}
 
 fn main(){
     variable();
@@ -344,5 +412,13 @@ fn main(){
     enumerator();
     println!("-------------");
     readfile();
+    println!("-------------");
+    alias();
+    println!("-------------");
+    from();
+    println!("-------------");
+    switch();
+    println!("-------------");
+    closure();
     println!("-------------");
 }
